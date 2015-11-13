@@ -32,9 +32,9 @@ object Presentation extends StyleSheet.Inline {
 
   val content = style()
 
-  val includeHowto = style(display.flex, flexDirection.column, flex:="1")
+  val includeHowto = style(display.flex, flexDirection.column, flex := "1")
 
-  val fileChoice = style()
+  val fileChoice = style(media.print(display.none))
 
   val key = style(color.black,
     backgroundColor :=! myLightGray,
@@ -42,7 +42,7 @@ object Presentation extends StyleSheet.Inline {
     margin(0.1.em, 0.2.em),
     border(0.1.em, solid, black),
     roundedBorder,
-    boxShadow := "0.1em 0.1em 0.1em " + myLightGray)
+    boxShadow := "0.1em 0.1em 0.1em #000")
 
   val shortcut = style(fontSize(0.75.em))
 
@@ -74,13 +74,17 @@ object Presentation extends StyleSheet.Inline {
     borderLeft(0.25.em, solid, c"#FFF"),
     borderRight(0.25.em, solid, c"#FFF"),
     transition := "border 0.5s ease,background-color 0.5s ease",
-    &.hover(
+    media.print.hover(
+      borderLeftColor.white.important,
+      borderRightColor.white.important,
+      backgroundColor.white.important),
+    media.screen.hover(
       borderLeftColor :=! myHover,
       borderRightColor :=! myHover,
       color.black,
       backgroundColor :=! "rgba(255,193,7,0.25)"),
-    flexWrap.wrap,
-    media.maxWidth(640.px)())
+
+    flexWrap.wrap)
 
   val stepInstruction = style(flex := "1")
 
@@ -88,4 +92,9 @@ object Presentation extends StyleSheet.Inline {
 
   val stepNumber = style(fontSize(2.em), minWidth(1.em), marginRight(0.1.em))
 
+  val contentWrapper = style()
+
+  val noSubStep = style()
+  val oneSubStep = style()
+  val multiSubSteps = style(display.flex, flexDirection.column, flex := "1")
 }

@@ -127,7 +127,7 @@ object ViewUrl {
           <.div(Presentation.stepInstruction,  instr.get("content"))
         case action => <.div(Presentation.stepInstruction,  <.div(action), <.hr(), <.div(js.JSON.stringify(instr)), suffixes)
       }
-      <.div(state.data.map({ data =>
+      <.div(Presentation.contentWrapper,state.data.map({ data =>
         //val addedSteps = 
         var steps = data.instructions.getOrElse(js.Array())
         if (source._2 != null)
@@ -183,9 +183,9 @@ object ViewUrl {
                           js.Dictionary((step.asInstanceOf[js.Dictionary[String]].toSeq ++ v.asInstanceOf[js.Dictionary[String]].toSeq): _*))(step.action.getOrElse(null)))
                       .zipWithIndex
                     customSteps.length match {
-                      case 0 => <.div("non trouvé")
-                      case 1 => <.div(customSteps.head._1)
-                      case _ => <.div(<.ol(Presentation.instructions, customSteps.map(item => <.li(^.key := item._2.toString, Presentation.step, <.span(Presentation.stepNumber, item._2 + 1), item._1))))
+                      case 0 => <.div(Presentation.noSubStep,"non trouvé")
+                      case 1 => <.div(Presentation.oneSubStep,customSteps.head._1)
+                      case _ => <.div(Presentation.multiSubSteps,<.ol(Presentation.instructions, customSteps.map(item => <.li(^.key := item._2.toString, Presentation.step, <.span(Presentation.stepNumber, item._2 + 1), item._1))))
                     }
                   case HasResultOrHowTo(v) => Seq[TagMod](
                     ViewResult.view.withKey("result")(v.result),
