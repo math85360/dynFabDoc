@@ -28,7 +28,7 @@ object ListUrl {
           val r = (x.take(index), "index")
           val name = x.drop(index).takeWhile(_ != '?')
           dom.console.info(name)
-          scope.modState(_.copy(active = name)).runNow()
+          scope.modState(s => s.copy(active = (if (s.active.trim.length == 0) name else s.active))).runNow()
           r
         case x if x.endsWith("/") =>
           val r = (x, "index")
@@ -59,12 +59,12 @@ object ListUrl {
     def render(source: Props, state: State): ReactTagOf[org.scalajs.dom.html.Element] = {
       <.div(Presentation.includeHowto,
         state.data.map(map =>
-          <.select(^.key:="fileChoice", Presentation.fileChoice, ^.onChange ==> changeActive, ^.value := state.active,
+          <.select(^.key := "fileChoice", Presentation.fileChoice, ^.onChange ==> changeActive, ^.value := state.active,
             <.option(^.value := "", ""), map.collect({
               case (value, title) if value != "title" => <.option(^.value := value, title)
             }))),
         state.data.map(_ =>
-          state.active.trim.length != 0 ?= ViewUrl.view.withKey("content")((state.base + state.active, source._2))))
+          state.active.trim.length != 0 ?= ViewUrl.view.withKey(state.active)((state.base + state.active, source._2))))
     }
   }
 }

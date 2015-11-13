@@ -16,13 +16,13 @@ object MainView {
     repositories: js.Array[Any] = js.Array())
 
   val view = ReactComponentB[String]("main-view")
-    .initialState_P { url => State(url) }
+    .initialState_P({ url => State(url) })
     .backend(new Backend(_))
     .renderBackend
     .build
 
   class Backend($: BackendScope[String, State]) {
-    def changeUrl(e: ReactEventI) = $.modState(_.copy(url = e.target.value))
+    def changeUrl(e: ReactEventI): Callback = $.modState(_.copy(url = e.target.value))
 
     def render(state: State) = {
       val turl = state.url.trim()

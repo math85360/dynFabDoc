@@ -5,6 +5,8 @@ import scalajs.js.JSApp
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom
+import scalacss.ScalaCssReact._
+import org.dynfabdoc.styles.Presentation
 
 /**
  * @author mathi_000
@@ -35,7 +37,8 @@ object ViewResult {
       <.div(
         <.input(^.value := state.url, ^.onChange ==> changeUrl),
         ourl.map(ViewUrl.view(_)))*/
-      <.div(props.map(_.map(url => url.toLowerCase() match {
+      <.div(Presentation.result,props.map(_.map(url => url.toLowerCase() match {
+        case x if x.startsWith("image:") => <.img(^.src := x.dropWhile(_ != ":").drop(1))
         case x if images.exists(x.endsWith(_)) => <.img(^.src := url)
         case x => <.a(^.href := url, url)
       })))

@@ -97,4 +97,6 @@ object Presentation extends StyleSheet.Inline {
   val noSubStep = style()
   val oneSubStep = style()
   val multiSubSteps = style(display.flex, flexDirection.column, flex := "1")
+  
+  val result = style()
 }
