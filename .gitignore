@@ -4,3 +4,9 @@
 /project/project/
 /project/target/
 /target/
+/activator*
+/.project
+/.classpath
+/.cache-main
+/.cache-test
+/.settings
