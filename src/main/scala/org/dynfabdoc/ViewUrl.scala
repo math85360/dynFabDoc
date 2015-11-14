@@ -187,7 +187,7 @@ object ViewUrl {
                       case 1 => <.div(Presentation.oneSubStep, customSteps.head._1)
                       case _ => <.div(Presentation.multiSubSteps, <.ol(Presentation.instructions, customSteps.map(item => <.li(^.key := item._2.toString, Presentation.step, <.div(Presentation.stepNumber, <.span(item._2 + 1)), item._1))))
                     }
-                  case HasResultOrHowTo(v) => Seq[TagMod](
+                  case HasResultOrHowTo(v) => <.div(Presentation.resultOrHowto,
                     ViewResult.view.withKey("result")(v.result),
                     v.howto.map(howto =>
                       ListUrl.view.withKey("howto")((howto.source.getOrElse(null), v.howto.getOrElse(null)))))

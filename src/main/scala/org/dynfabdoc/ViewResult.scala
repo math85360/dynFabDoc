@@ -37,8 +37,8 @@ object ViewResult {
       <.div(
         <.input(^.value := state.url, ^.onChange ==> changeUrl),
         ourl.map(ViewUrl.view(_)))*/
-      <.div(Presentation.result,props.map(_.map(url => url.toLowerCase() match {
-        case x if x.startsWith("image:") => <.img(^.src := x.dropWhile(_ != ":").drop(1))
+      <.div(Presentation.result, props.map(_.map(url => url.toLowerCase() match {
+        case x if x.startsWith("image:") => <.img(^.src := url.dropWhile(_ != ':').drop(1))
         case x if images.exists(x.endsWith(_)) => <.img(^.src := url)
         case x => <.a(^.href := url, url)
       })))

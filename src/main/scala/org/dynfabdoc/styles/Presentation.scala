@@ -17,6 +17,7 @@ object Presentation extends StyleSheet.Inline {
   import dsl._
   val myLightGray = "#D9D9D9"
   val myHover = "#FFC107"
+  val myGray = "#9E9E9E"
   //val myGray = 
 
   val roundedBorder = borderRadius(0.33.em)
@@ -25,7 +26,7 @@ object Presentation extends StyleSheet.Inline {
     display.flex,
     flexDirection.column,
     lineHeight(1.5),
-    color(c"#9E9E9E"),
+    color :=! myGray,
     media.print(fontSize(8.pt)))
 
   val url = style()
@@ -98,5 +99,11 @@ object Presentation extends StyleSheet.Inline {
   val oneSubStep = style()
   val multiSubSteps = style(display.flex, flexDirection.column, flex := "1")
 
-  val result = style()
+  val result = style(media.minWidth(640.px)(width(15.vw)), padding(1.em), media.maxWidth(640.px)(padding(1.em, 20.vw)),
+    unsafeExt(_ + " > IMG")(borderRadius(1.em), width(100.%%), height.auto, boxShadow := "0.2em 0.2em 0.4em "+myGray))
+
+  val resultOrHowto = style(display.flex,
+    flexDirection.row,
+    flexWrap.wrap,
+    flex := "1")
 }
