@@ -90,13 +90,13 @@ object Presentation extends StyleSheet.Inline {
 
   val instructions = style(margin.`0`, padding.`0`, display.flex, flexDirection.column)
 
-  val stepNumber = style(fontSize(2.em), minWidth(1.em), marginRight(0.1.em))
+  val stepNumber = style(fontSize(2.em), marginRight(0.1.em)) // How to have a minimal size
 
   val contentWrapper = style()
 
   val noSubStep = style()
   val oneSubStep = style()
   val multiSubSteps = style(display.flex, flexDirection.column, flex := "1")
-  
+
   val result = style()
 }

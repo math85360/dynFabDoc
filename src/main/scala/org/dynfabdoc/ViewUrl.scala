@@ -102,14 +102,14 @@ object ViewUrl {
               options.split("\\|").map(s(_, "menu")).reduceLeft((o1, o2) =>
                 Seq(o1, <.span(" puis "), o2)))*/ , suffixes)
         case "keyboardInput" => //if (instr.contains("value"))
-          <.div(Presentation.stepInstruction,  "Taper ", i("value", Presentation.keyboardInput), suffixes)
+          <.div(Presentation.stepInstruction, "Taper ", i("value", Presentation.keyboardInput), suffixes)
         case "keyboard" =>
-          <.div(Presentation.stepInstruction,  "Appuyer sur ",
+          <.div(Presentation.stepInstruction, "Appuyer sur ",
             i("key", Presentation.key, "\\+", "+", transformValue = keys) /*instr.get("key").map(options =>
               options.split("\\+").map(s(_, "key")).reduceLeft((o1, o2) =>
                 Seq(o1, <.span(" + "), o2)))*/ , suffixes)
         case "mouseClick" =>
-          <.div(Presentation.stepInstruction,  "Cliquer sur ", instr.get("icon").map("l'icône (" + _ + ")"),
+          <.div(Presentation.stepInstruction, "Cliquer sur ", instr.get("icon").map("l'icône (" + _ + ")"),
             i("where", Presentation.clickOn, transformValue = {
               case "topLeft" => " en haut à gauche "
               case "topCenter" => " au centre en haut "
@@ -124,10 +124,10 @@ object ViewUrl {
         //else
         //<.div("Appuyer sur ", i("program", "runProgram"))
         case "custom" =>
-          <.div(Presentation.stepInstruction,  instr.get("content"))
-        case action => <.div(Presentation.stepInstruction,  <.div(action), <.hr(), <.div(js.JSON.stringify(instr)), suffixes)
+          <.div(Presentation.stepInstruction, instr.get("content"))
+        case action => <.div(Presentation.stepInstruction, <.div(action), <.hr(), <.div(js.JSON.stringify(instr)), suffixes)
       }
-      <.div(Presentation.contentWrapper,state.data.map({ data =>
+      <.div(Presentation.contentWrapper, state.data.map({ data =>
         //val addedSteps = 
         var steps = data.instructions.getOrElse(js.Array())
         if (source._2 != null)
@@ -169,7 +169,7 @@ object ViewUrl {
           //<.h2(data.title),
           <.ol(Presentation.instructions, data.instructions.map(instructions =>
             steps.zipWithIndex.map(instruction =>
-              <.li(^.key := instruction._2.toString, Presentation.step, <.span(Presentation.stepNumber, instruction._2 + 1),
+              <.li(^.key := instruction._2.toString, Presentation.step, <.div(Presentation.stepNumber, <.span(instruction._2 + 1)),
                 instruction._1 match {
                   case AddedInstruction(v) =>
                     val customSteps = data.models.getOrElse(js.Array()).
@@ -183,9 +183,9 @@ object ViewUrl {
                           js.Dictionary((step.asInstanceOf[js.Dictionary[String]].toSeq ++ v.asInstanceOf[js.Dictionary[String]].toSeq): _*))(step.action.getOrElse(null)))
                       .zipWithIndex
                     customSteps.length match {
-                      case 0 => <.div(Presentation.noSubStep,"non trouvé")
-                      case 1 => <.div(Presentation.oneSubStep,customSteps.head._1)
-                      case _ => <.div(Presentation.multiSubSteps,<.ol(Presentation.instructions, customSteps.map(item => <.li(^.key := item._2.toString, Presentation.step, <.span(Presentation.stepNumber, item._2 + 1), item._1))))
+                      case 0 => <.div(Presentation.noSubStep, "non trouvé")
+                      case 1 => <.div(Presentation.oneSubStep, customSteps.head._1)
+                      case _ => <.div(Presentation.multiSubSteps, <.ol(Presentation.instructions, customSteps.map(item => <.li(^.key := item._2.toString, Presentation.step, <.div(Presentation.stepNumber, <.span(item._2 + 1)), item._1))))
                     }
                   case HasResultOrHowTo(v) => Seq[TagMod](
                     ViewResult.view.withKey("result")(v.result),
