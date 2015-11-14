@@ -99,7 +99,7 @@ object Presentation extends StyleSheet.Inline {
   val oneSubStep = style()
   val multiSubSteps = style(display.flex, flexDirection.column, flex := "1")
 
-  val result = style(media.minWidth(640.px)(width(15.vw)), padding(1.em), media.maxWidth(640.px)(padding(1.em, 20.vw)),
+  val result = style(media.minWidth(640.px)(width(15.vw)), padding(1.em), media.maxWidth(640.px)(padding(1.em, 20.vw)), media.print(padding(1.em), width(5.cm)),
     unsafeExt(_ + " > IMG")(borderRadius(1.em), width(100.%%), height.auto, boxShadow := "0.2em 0.2em 0.4em "+myGray))
 
   val resultOrHowto = style(display.flex,
